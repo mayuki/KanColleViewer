@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Reactive;
@@ -44,6 +45,7 @@ namespace Misuzilla.KanColleViewer.Plugins.AzureMobileServicesNotifier.MobileSer
         /// <returns></returns>
         public async Task Upsert(AzureMobileNotificationType type, int id, string description, DateTimeOffset? completionTime)
         {
+            Debug.WriteLine(String.Format("Upsert: type={0}; id={1}; description={2}; completionTime={3}", type, id, description, completionTime));
             if (_client == null)
             {
                 return;
@@ -69,6 +71,7 @@ namespace Misuzilla.KanColleViewer.Plugins.AzureMobileServicesNotifier.MobileSer
         /// <returns></returns>
         public async Task Delete(AzureMobileNotificationType type, int id)
         {
+            Debug.WriteLine(String.Format("Delete: type={0}; id={1}", type, id));
             if (_client == null)
             {
                 return;
