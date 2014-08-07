@@ -76,11 +76,11 @@ namespace Misuzilla.KanColleViewer.Plugins.AzureMobileServicesNotifier
                         .Subscribe(_ =>
                         {
                             Debug.WriteLine(String.Format("BuildingDock Changed: Id={0}, State={1}, Ship={2}", dock.Id, dock.State, dock.Ship));
-                            if (dock.State == BuildingDockState.Completed)
+                            if (dock.State == BuildingDockState.Building)
                             {
                                 _notification.Upsert(AzureMobileNotificationType.Construction,
                                                     dock.Id,
-                                                    dock.Ship.Name,
+                                                    "???"/*dock.Ship.Name*/,
                                                     dock.CompleteTime)
                                              .FireAndForget();
                             }
