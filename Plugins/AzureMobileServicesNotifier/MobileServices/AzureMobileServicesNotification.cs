@@ -14,8 +14,8 @@ namespace Misuzilla.KanColleViewer.Plugins.AzureMobileServicesNotifier.MobileSer
 {
     public class AzureMobileServicesNotification
     {
-        private const String ApplicationUrl = "";
-        private const String AppKey = "";
+        private const String ApplicationUrl = "https://kancolle-notifier-dev.azure-mobile.net/";
+        private const String AppKey = "CPHGHwzcdwjPpPDABMFuVgXfubPvYg36";
 
         private MobileServiceClient _client;
         private ISubject<Unit> _pushQueue = new Subject<Unit>();
