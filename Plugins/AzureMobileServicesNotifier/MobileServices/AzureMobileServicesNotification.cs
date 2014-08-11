@@ -14,8 +14,8 @@ namespace Misuzilla.KanColleViewer.Plugins.AzureMobileServicesNotifier.MobileSer
 {
     public class AzureMobileServicesNotification
     {
-        private const String ApplicationUrl = "https://kancolle-notifier-dev.azure-mobile.net/";
-        private const String AppKey = "CPHGHwzcdwjPpPDABMFuVgXfubPvYg36";
+        private const String ApplicationUrl = "https://mayuki-test-01.azure-mobile.net/";
+        private const String AppKey = "cXpdviLGnZdnCiMeqxangWBWIBCBst85";
 
         private MobileServiceClient _client;
         private ISubject<Unit> _pushQueue = new Subject<Unit>();
@@ -112,7 +112,7 @@ namespace Misuzilla.KanColleViewer.Plugins.AzureMobileServicesNotifier.MobileSer
         }
 
         /// <summary>
-        /// プッシュ通知をクライアントに送信します
+        /// プッシュ通知をクライアントに送信し、クライアントサイドでのバックグラウンド更新を促します
         /// </summary>
         /// <returns></returns>
         public async Task Push()
@@ -120,6 +120,25 @@ namespace Misuzilla.KanColleViewer.Plugins.AzureMobileServicesNotifier.MobileSer
             await _client.InvokeApiAsync("Push",
                 HttpMethod.Post,
                 new Dictionary<String, String>()
+            );
+        }
+
+
+        /// <summary>
+        /// プッシュ通知をクライアントに送信します
+        /// </summary>
+        /// <param name="header">見出しの文章</param>
+        /// <param name="body">本文</param>
+        /// <returns></returns>
+        public async Task Push(String header, String body)
+        {
+            await _client.InvokeApiAsync("Push",
+                HttpMethod.Post,
+                new Dictionary<String, String>()
+                {
+                    { "header", header },
+                    { "body", body }
+                }
             );
         }
     }

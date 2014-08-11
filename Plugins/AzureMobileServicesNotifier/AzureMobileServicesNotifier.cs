@@ -21,6 +21,10 @@ using Misuzilla.KanColleViewer.Plugins.AzureMobileServicesNotifier.MobileService
 namespace Misuzilla.KanColleViewer.Plugins.AzureMobileServicesNotifier
 {
     [Export(typeof(INotifier))]
+    [ExportMetadata("Title", "AzureMobileServicesNotifier")]
+    [ExportMetadata("Description", "Windows Azure Mobile Servicesを使用して通知します。")]
+    [ExportMetadata("Version", "1.0")]
+    [ExportMetadata("Author", "@mayuki")]
     public class AzureMobileServicesNotifier : INotifier
     {
         private CompositeDisposable _disposables;
@@ -40,9 +44,24 @@ namespace Misuzilla.KanColleViewer.Plugins.AzureMobileServicesNotifier
 
         public void Show(NotifyType type, string header, string body, Action activated, Action<Exception> failed = null)
         {
+            // 入渠、建造、遠征は通知しない(Mobile Services側にデータをストアするので)
+            if (type == NotifyType.Other || type == NotifyType.Rejuvenated)
+            {
+                _notification.Push(header, body);
+            }
         }
 
         public object GetSettingsView()
+        {
+            return null;
+        }
+
+        public string ToolName
+        {
+            get { return "モバイル通知"; }
+        }
+
+        public object GetToolView()
         {
             return null;
         }
@@ -155,5 +174,6 @@ namespace Misuzilla.KanColleViewer.Plugins.AzureMobileServicesNotifier
                 })
                 .AddTo(_disposables);
         }
+
     }
 }
